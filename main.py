@@ -6,8 +6,8 @@ def get_coords(city, key):
         geocoder = OpenCageGeocode(key)
         results = geocoder.geocode(city, lanuage="ru")
         if results:
-            lat=round(results[0]["geometry"]["lat"],3)
-            lng=round(results[0]["geometry"]["lng"],3)
+            lat=round(results[0]["geometry"]["lat"],2)
+            lng=round(results[0]["geometry"]["lng"],2)
 
             return f"Широта:{lat}, Долгота:{lng}"
         else:
@@ -17,7 +17,7 @@ def get_coords(city, key):
 
 
 key = '4b118bba547640c0b0a5b30c043600f4'
-city="Казань"
+city="Орск"
 coordinates=get_coords(city, key)
 
 if coordinates:
