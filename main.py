@@ -11,19 +11,20 @@ def get_coords(city, key):
             lat=round(results[0]["geometry"]["lat"],2)
             lng=round(results[0]["geometry"]["lng"],2)
             country = results[0]['components']['country']
+            cur = results[0]['annotations']['currency']['name']
             # Получаем URL для OpenStreetMap
             osm_url = f"https://www.openstreetmap.org/?mlat={lat}&mlon={lng}"
 
             if 'state' in results[0]['components']:
                 region = results[0]['components']['state']
                 return {
-                    "coordinates": f"Широта: {lat}, Долгота: {lng}\nСтрана: {country}\nРегион: {region}",
+                    "coordinates": f"Широта: {lat}, Долгота: {lng}\nСтрана: {country}\nРегион: {region}\nВалюта: {cur}",
                         "map_url": osm_url
                         }
 
             else:
                 return {
-                    "coordinates": f"Широта: {lat}, Долгота: {lng}\nСтрана: {country}",
+                    "coordinates": f"Широта: {lat}, Долгота: {lng}\nСтрана: {country}\nВалюта: {cur}",
                         "map_url": osm_url
                         }
 
@@ -47,12 +48,17 @@ def show_map():
         webbrowser.open(map_url)
 
 
+def delete():
+    entry.delete(0, END)  # Очищаем поле ввода
+    label.config(text="Введите город и нажмите Поиск")  # Сбрасываем текст метки
+
+
 key = '4b118bba547640c0b0a5b30c043600f4'
 
 
 window = Tk()
 window.title("Поиск координат города")
-window.geometry("250x160")
+window.geometry("250x170")
 
 map_url = None
 
@@ -69,6 +75,9 @@ label.pack()
 
 map_button = Button(text="Показать карту", command=show_map)
 map_button.pack()
+
+delete_button= Button(text="Очистить", command=delete)
+delete_button.pack()
 
 # Запуск приложения
 window.mainloop()
