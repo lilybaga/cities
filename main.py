@@ -9,8 +9,10 @@ def get_coords(city, key):
         if results:
             lat=round(results[0]["geometry"]["lat"],2)
             lng=round(results[0]["geometry"]["lng"],2)
+            country = results[0]['components']['country']
+            region = results[0]['components']['state']
+            return f"Широта: {lat}, Долгота: {lng}\nСтрана: {country}\nРегион: {region}"
 
-            return f"Широта:{lat}, Долгота:{lng}"
         else:
             print("Данные не найдены")
     except Exception as err:
