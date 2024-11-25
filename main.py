@@ -4,8 +4,7 @@ from opencage.geocoder import OpenCageGeocode
 def get_coords(city, key):
     try:
         geocoder = OpenCageGeocode(key)
-        query=city
-        results = geocoder.geocode(query)
+        results = geocoder.geocode(city, lanuage="ru")
         if results:
             lat=round(results[0]["geometry"]["lat"],3)
             lng=round(results[0]["geometry"]["lng"],3)
@@ -18,7 +17,7 @@ def get_coords(city, key):
 
 
 key = '4b118bba547640c0b0a5b30c043600f4'
-city="Уфа"
+city="Казань"
 coordinates=get_coords(city, key)
 
 if coordinates:
