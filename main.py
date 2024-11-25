@@ -5,13 +5,16 @@ from tkinter import *
 def get_coords(city, key):
     try:
         geocoder = OpenCageGeocode(key)
-        results = geocoder.geocode(city, lanuage="ru")
+        results = geocoder.geocode(city, lanuage='ru')
         if results:
             lat=round(results[0]["geometry"]["lat"],2)
             lng=round(results[0]["geometry"]["lng"],2)
             country = results[0]['components']['country']
-            region = results[0]['components']['state']
-            return f"Широта: {lat}, Долгота: {lng}\nСтрана: {country}\nРегион: {region}"
+            if 'state' in results[0]['components']:
+                region = results[0]['components']['state']
+                return f"Широта: {lat}, Долгота: {lng}\nСтрана: {country}\nРегион: {region}"
+            else:
+                return f"Широта: {lat}, Долгота: {lng}\nСтрана: {country}."
 
         else:
             print("Данные не найдены")
